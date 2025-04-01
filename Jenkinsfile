@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     tools {
-        // Вказання версії JDK
-        jdk 'JDK 17'
-        gradle 'Gradle 7.4'
+        jdk 'JDK 21'
+        gradle 'Gradle 8.10.2'
     }
 
     stages {
