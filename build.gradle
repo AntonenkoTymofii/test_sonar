@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id "org.sonarqube" version "6.0.1.5171"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "test"
+        property "sonar.projectName", "test"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "sqp_14590eef322dfdd31a9956d89da949c9fb8d9e6d"
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
