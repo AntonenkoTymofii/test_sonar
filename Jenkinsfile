@@ -10,20 +10,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'gradle clean build'
+                bat 'gradlew.bat clean build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'gradle test'
+                bat 'gradlew.bat test'
             }
         }
     }
 
     post {
         always {
-            junit '**/build/test-results/test/*.xml'
+            junit '**/build/test-results/test/binary/*.xml'
         }
     }
 }
