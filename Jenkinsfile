@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JDK17'
+        jdk 'JDK21'
     }
 
     environment {
-        JAVA_HOME = "${tool 'JDK17'}"
+        JAVA_HOME = "${tool 'JDK21'}"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
@@ -19,6 +19,8 @@ pipeline {
 
         stage('Build') {
             steps {
+                bat 'echo Using Java Home: %JAVA_HOME%'
+                bat 'java -version'
                 bat 'gradlew.bat clean build'
             }
         }
@@ -34,7 +36,7 @@ pipeline {
 
     post {
         always {
-            junit '**/build/test-results/test/*.xml' // Исправлен путь
+            junit '**/build/test-results/test/*.xml'
         }
     }
 }
