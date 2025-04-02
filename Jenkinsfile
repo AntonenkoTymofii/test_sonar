@@ -1,6 +1,15 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK17'
+    }
+
+    environment {
+        JAVA_HOME = "${tool 'JDK17'}"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -16,14 +25,16 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'gradlew.bat test'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    bat 'gradlew.bat test'
+                }
             }
         }
     }
 
     post {
         always {
-            junit '**/build/test-results/test/binary/*.xml'
+            junit '**/build/test-results/test/*.xml' // Исправлен путь
         }
     }
 }
