@@ -17,13 +17,11 @@ class MainTest {
 
     @BeforeEach
     void setUpStreams() {
-        // Перехоплюємо стандартний вивід для тестування
         System.setOut(new PrintStream(outContent));
     }
 
     @AfterEach
     void restoreStreams() {
-        // Відновлюємо стандартний вивід після тестів
         System.setOut(originalOut);
     }
 
@@ -41,8 +39,6 @@ class MainTest {
 
     @Test
     void testPrintAndDisplayMessageEquality() {
-        // Перевіряємо, що обидва методи виводять однаковий результат
-        // (перевірка на дублювання коду)
         outContent.reset();
         main.printMessage();
         String printResult = outContent.toString();
@@ -56,7 +52,6 @@ class MainTest {
 
     @Test
     void testGetValueWithNull() {
-        // JUnit 5 використовує assertThrows замість expected анотації
         assertThrows(NullPointerException.class, () -> {
             main.getValue(null);
         });
@@ -84,15 +79,12 @@ class MainTest {
 
     @Test
     void testUnusedMethod() {
-        // Просто перевіряємо, що метод не викидає виключення
         main.unusedMethod();
-        // Перевіряємо, що нічого не виведено
         assertEquals("", outContent.toString());
     }
 
     @Test
     void testMainMethod() {
-        // JUnit 5 використовує assertThrows
         assertThrows(NullPointerException.class, () -> {
             Main.main(new String[]{});
         });
